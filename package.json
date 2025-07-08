@@ -29,7 +29,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && esbuild src/index.ts --bundle --platform=node --packages=external --target=node22 --format=esm --outfile=dist/index.js",
-    "start": "node --env-file .env dist/index.js",
+    "start": "node --env-file-if-exists .env dist/index.js",
     "dev": "NODE_OPTIONS='--experimental-strip-types' node --watch --env-file .env src/index.ts",
     "lint": "eslint --cache --cache-strategy content .",
     "lint:fix": "eslint --cache --cache-strategy content --fix .",
