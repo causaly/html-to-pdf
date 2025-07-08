@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "noErrorTruncation": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext",
+    "allowImportingTsExtensions": true,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
+    "erasableSyntaxOnly": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "rewriteRelativeImportExtensions": true,
+    "skipLibCheck": true,
+    "types": ["node", "vitest/globals"],
+    "verbatimModuleSyntax": true
+  },
+  "include": ["./src/**/*.ts"]
+}

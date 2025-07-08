@@ -1,0 +1,62 @@
+# Dependencies (will be installed via npm ci)
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE and editor files
+.vscode
+.idea
+
+# OS generated files
+.DS_Store
+
+# Build artifacts (will be built in container)
+dist
+build
+coverage
+
+# Development and testing files
+*.test.ts
+*.spec.ts
+test/
+tests/
+__tests__/
+
+# Development configuration
+.env.local
+.env.development
+.env.test
+vitest.config.ts
+.eslintcache
+
+# Logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+coverage
+.nyc_output
+.cache
+.tmp
+.temp
+
+# Documentation
+*.md
+docs/
+
+# Puppeteer
+.puppeteerrc.cjs
+
+# CI/CD files
+.github/
+.gcloud/
+
+# Other config files not needed in production
+.prettierrc.json
+.nvmrc

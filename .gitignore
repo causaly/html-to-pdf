@@ -1,0 +1,40 @@
+# dependencies
+node_modules
+
+# environmental variables
+.env.local
+.env.development.local
+.env.development
+.env.test.local
+.env.production.local
+.env.production
+.env
+
+# build output
+dist
+build-storybook.log
+*.tsbuildinfo
+
+# misc
+.DS_Store
+npm-debug.log*
+
+# editors
+.vscode/*
+!.vscode/launch.json
+!.vscode/README.md
+!.vscode/settings.json
+.idea/
+
+# devops
+samples
+logs
+
+# cache
+.eslintcache
+
+# test output
+coverage
+
+# zed plugins related
+.codebook.toml
