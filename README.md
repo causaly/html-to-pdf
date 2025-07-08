@@ -1,5 +1,7 @@
 # html-to-pdf
 
+![html-to-pdf](https://github.com/user-attachments/assets/9aa9e5d7-462a-4c75-9e2e-102df07d3053)
+
 A Node.js service that converts HTML content to PDF using Puppeteer. Designed to be deployed as a containerized service.
 
 [![Build Status](https://github.com/causaly/html-to-pdf/actions/workflows/ci.yml/badge.svg)](https://github.com/causaly/html-to-pdf/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fcausaly%2Fhtml--to--pdf-blue)](https://github.com/causaly/html-to-pdf/pkgs/container/html-to-pdf)
