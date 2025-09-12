@@ -5,7 +5,7 @@
 
 ARG NODE_VERSION=22
 
-FROM node:${NODE_VERSION}
+FROM node:${NODE_VERSION}-bookworm-slim
 
 ARG HOST=0.0.0.0
 ARG PORT=8087
