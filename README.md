@@ -212,19 +212,19 @@ LOG_LEVEL=info
 1. **Build the image:**
 
    ```bash
-   docker build -t html-to-pdf .
+   docker build --platform linux/amd64 -t html-to-pdf .
    ```
 
 2. **Run the container:**
 
    ```bash
-   docker run -p 8087:8087 html-to-pdf
+   docker run --platform linux/amd64 -p 8087:8087 html-to-pdf
    ```
 
 3. **Run with environment variables:**
 
    ```bash
-   docker run -p 8087:8087 \
+   docker run --platform linux/amd64 -p 8087:8087 \
      -e LOG_LEVEL=debug \
      -e LOG_FORMAT=json \
      html-to-pdf
