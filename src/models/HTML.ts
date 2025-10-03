@@ -8,6 +8,7 @@ import { sanitizeHtml } from '../utils/html.ts';
 export const schema = zod
   .string()
   .transform((html) => sanitizeHtml(html))
+  .transform((html) => wrapHtmlWithCSP(html))
   .brand<'HTML'>();
 
 export type HTML = zod.infer<typeof schema>;

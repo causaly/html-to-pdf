@@ -71,8 +71,8 @@ describe('createPdf', () => {
         expect(mockPage.pdf).toHaveBeenCalledWith(
           expect.objectContaining({
             displayHeaderFooter: true,
-            headerTemplate: header,
-            footerTemplate: footer,
+            headerTemplate: expect.stringContaining('<div>Header</div>'),
+            footerTemplate: expect.stringContaining('<div>Footer</div>'),
             margin: expect.objectContaining({
               top: '80px',
               bottom: '80px',
