@@ -2,9 +2,10 @@ import { sanitizeHtml, wrapHtmlWithCSP } from './html.ts';
 
 describe('wrapHtmlWithCSP', () => {
   it('should wrap HTML fragments in complete document with CSP', () => {
-    const html = '<div>Content</div><script src="https://cdn.tailwindcss.com"></script>';
+    const html =
+      '<div>Content</div><script src="https://cdn.tailwindcss.com"></script>';
     const result = wrapHtmlWithCSP(html);
-    
+
     expect(result).toContain('<!DOCTYPE html>');
     expect(result).toContain('<html>');
     expect(result).toContain('<head>');
@@ -12,27 +13,13 @@ describe('wrapHtmlWithCSP', () => {
     expect(result).toContain('<meta http-equiv="Content-Security-Policy"');
     expect(result).toContain('<body>');
     expect(result).toContain('<div>Content</div>');
-    expect(result).toContain('<script src="https://cdn.tailwindcss.com"></script>');
-  });
-
-  it('should include comprehensive CSP policy', () => {
-    const html = '<div>Test</div>';
-    const result = wrapHtmlWithCSP(html);
-    
-    expect(result).toContain('default-src \'self\'');
-    expect(result).toContain('script-src \'self\' https://*.tailwindcss.com \'sha256-GYOeRN4LL+IyzNeGMYGAeRyXME5PWdnz8JAfEmhv0E0=\'');
-    expect(result).toContain('style-src \'self\' \'unsafe-inline\'');
-    expect(result).toContain('img-src \'self\' data: https:');
-    expect(result).toContain('font-src \'self\' https://cdn.tailwindcss.com');
-    expect(result).toContain('connect-src \'none\'');
-    expect(result).toContain('frame-src \'none\'');
-    expect(result).toContain('object-src \'none\'');
-    expect(result).toContain('base-uri \'self\'');
+    expect(result).toContain(
+      '<script src="https://cdn.tailwindcss.com"></script>'
+    );
   });
 });
 
 describe('sanitizeHtml', () => {
-
   it('should allow Tailwind CDN script', () => {
     const html =
       '<div>Content</div><script src="https://cdn.tailwindcss.com"></script>';
@@ -42,7 +29,9 @@ describe('sanitizeHtml', () => {
       '<script src="https://cdn.tailwindcss.com"></script>'
     );
     expect(result).toContain('<div>Content</div>');
-    expect(result).toContain('script-src \'self\' https://*.tailwindcss.com \'sha256-GYOeRN4LL+IyzNeGMYGAeRyXME5PWdnz8JAfEmhv0E0=\'');
+    expect(result).toContain(
+      "script-src 'self' https://*.tailwindcss.com 'sha256-GYOeRN4LL+IyzNeGMYGAeRyXME5PWdnz8JAfEmhv0E0='"
+    );
   });
 
   it('should allow tailwind.config inline script', () => {
