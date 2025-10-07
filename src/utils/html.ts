@@ -1,7 +1,7 @@
 import { default as sanitizeHtmlCommand } from 'sanitize-html';
 
 export function wrapHtmlWithCSP(html: string): string {
-  const cspPolicy = "default-src 'self'; script-src 'self' https://*.tailwindcss.com 'sha256-GYOeRN4LL+IyzNeGMYGAeRyXME5PWdnz8JAfEmhv0E0='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'";
+  const cspPolicy = "default-src 'self'; script-src 'self' https://*.tailwindcss.com 'sha256-/0hufhWKGNA3rWJK5q3jwn/1kyVQaW5Ow7qRoLsPdyE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'";
   
   return `<!DOCTYPE html>
 <html>
