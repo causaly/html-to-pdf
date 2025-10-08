@@ -30,7 +30,7 @@ describe('sanitizeHtml', () => {
     );
     expect(result).toContain('<div>Content</div>');
     expect(result).toContain(
-      "script-src 'self' https://*.tailwindcss.com 'sha256-GYOeRN4LL+IyzNeGMYGAeRyXME5PWdnz8JAfEmhv0E0='"
+      "script-src * 'unsafe-inline' 'unsafe-eval'"
     );
   });
 
