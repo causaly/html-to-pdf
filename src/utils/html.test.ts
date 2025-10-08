@@ -29,9 +29,7 @@ describe('sanitizeHtml', () => {
       '<script src="https://cdn.tailwindcss.com"></script>'
     );
     expect(result).toContain('<div>Content</div>');
-    expect(result).toContain(
-      "script-src * 'unsafe-inline' 'unsafe-eval'"
-    );
+    expect(result).toContain("script-src * 'unsafe-inline' 'unsafe-eval'");
   });
 
   it('should allow tailwind.config inline script', () => {
