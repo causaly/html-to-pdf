@@ -25,12 +25,9 @@ export const createPdf = (props: CreatePdfProps) => {
         const browser = await puppeteer.launch({
           headless: true,
           args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
             '--disable-gpu',
             '--disable-dev-shm-usage',
             '--disable-infobars',
-            '--single-process',
           ],
         });
 
