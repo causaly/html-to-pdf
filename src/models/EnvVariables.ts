@@ -16,6 +16,11 @@ export const schema = zod.object({
   LOG_LEVEL: LogLevel.schema.default(LogLevel.schema.enum.info),
   ROLLBAR_ACCESS_TOKEN: zod.string().min(1).optional(),
   NODE_ENV: zod.enum(nodeEnvs).default(nodeEnvs.DEVELOPMENT),
+  CSP_POLICY: zod
+    .string()
+    .default(
+      "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'"
+    ),
 });
 
 export type EnvVariables = zod.infer<typeof schema>;

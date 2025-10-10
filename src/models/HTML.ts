@@ -8,13 +8,21 @@ import { sanitizeHtml, wrapHtmlWithCSP } from '../utils/html.ts';
 export const schema = zod
   .string()
   .transform((html) => sanitizeHtml(html))
-  .transform((html) => wrapHtmlWithCSP(html))
-  .brand<'HTML'>();
+  .brand<'SanitizedHTML'>();
 
-export type HTML = zod.infer<typeof schema>;
+export type SanitizedHTML = zod.infer<typeof schema>;
+
+export type HTMLWithCSP = string & { readonly __brand: 'HTMLWithCSP' };
 
 export function parse(
   value: zod.input<typeof schema>
-): Either.Either<ValidationError, HTML> {
+): Either.Either<ValidationError, SanitizedHTML> {
   return Either.tryCatch(() => schema.parse(value), toValidationError());
+}
+
+export function withCSP(
+  sanitizedHtml: SanitizedHTML,
+  cspPolicy: string
+): HTMLWithCSP {
+  return wrapHtmlWithCSP(sanitizedHtml, cspPolicy) as HTMLWithCSP;
 }

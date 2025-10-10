@@ -161,29 +161,26 @@ Content-Type: application/json
 
 The service requires basic configuration via environment variables:
 
-| Variable               | Required | Default       | Description                                          |
-| ---------------------- | -------- | ------------- | ---------------------------------------------------- |
-| `HOST`                 | Yes      | -             | Server host address                                  |
-| `PORT`                 | Yes      | -             | Server port                                          |
-| `NODE_ENV`             | No       | `development` | Node.js environment                                  |
-| `DEPLOY_ENV`           | No       | `development` | Deployment environment                               |
-| `LOG_FORMAT`           | No       | `pretty`      | Log format (`pretty` or `gcp`)                       |
-| `LOG_LEVEL`            | No       | `info`        | Log level (`debug`, `info`, `warn`, `error`, `none`) |
-| `ROLLBAR_ACCESS_TOKEN` | No       | -             | Rollbar access token for error tracking              |
+| Variable               | Required | Default                                              | Description                                          |
+| ---------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `HOST`                 | Yes      | -                                                    | Server host address                                  |
+| `PORT`                 | Yes      | -                                                    | Server port                                          |
+| `NODE_ENV`             | No       | `development`                                        | Node.js environment                                  |
+| `DEPLOY_ENV`           | No       | `development`                                        | Deployment environment                               |
+| `LOG_FORMAT`           | No       | `pretty`                                             | Log format (`pretty` or `gcp`)                       |
+| `LOG_LEVEL`            | No       | `info`                                               | Log level (`debug`, `info`, `warn`, `error`, `none`) |
+| `ROLLBAR_ACCESS_TOKEN` | No       | -                                                    | Rollbar access token for error tracking              |
+| `CSP_POLICY`           | No       | Loose policy with `'unsafe-inline'` for script/style | Content Security Policy for generated PDFs           |
 
 ### Environment File
 
-Create a `.env` file in the project root:
+Create a `.env` file from the example template:
 
-```env
-HOST=0.0.0.0
-PORT=8087
-NODE_ENV=development
-DEPLOY_ENV=development
-LOG_FORMAT=pretty
-LOG_LEVEL=info
-# ROLLBAR_ACCESS_TOKEN=your_rollbar_token_here
+```bash
+cp .env.example .env
 ```
+
+Then customize as needed. See `.env.example` for all available configuration options.
 
 ## Development
 
@@ -226,7 +223,7 @@ LOG_LEVEL=info
    ```bash
    docker run --platform linux/amd64 -p 8087:8087 \
      -e LOG_LEVEL=debug \
-     -e LOG_FORMAT=json \
+     -e LOG_FORMAT=pretty \
      html-to-pdf
    ```
 

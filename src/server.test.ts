@@ -25,11 +25,14 @@ const rollbar = makeRollbar({
   rollbarAccessToken: undefined, // No rollbar for tests
 });
 
+const testCspPolicy =
+  "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'";
+
 describe('makeServer', () => {
   let server: Fastify.FastifyInstance;
 
   beforeAll(async () => {
-    server = makeServer({ logger, rollbar });
+    server = makeServer({ logger, rollbar, cspPolicy: testCspPolicy });
 
     // Start server on a random available port
     await server.listen({ port: 0, host: '127.0.0.1' });

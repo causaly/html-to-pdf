@@ -38,6 +38,7 @@ const rollbar = makeRollbar({
 const server = makeServer({
   logger,
   rollbar,
+  cspPolicy: envVariables.CSP_POLICY,
 });
 
 const port = envVariables.PORT;
