@@ -1,9 +1,6 @@
 import { default as sanitizeHtmlCommand } from 'sanitize-html';
 
-export function wrapHtmlWithCSP(html: string): string {
-  const cspPolicy =
-    "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';";
-
+export function wrapHtmlWithCSP(html: string, cspPolicy: string): string {
   return `<!DOCTYPE html>
 <html>
 <head>
