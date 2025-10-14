@@ -19,7 +19,7 @@ export const schema = zod.object({
   CSP_POLICY: zod
     .string()
     .default(
-      "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'"
+      "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
     ),
 });
 
