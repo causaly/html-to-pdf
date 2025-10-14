@@ -7,7 +7,11 @@ import {
 import puppeteer from 'puppeteer';
 
 import * as BodyProps from '../models/BodyProps.ts';
+import * as HTML from '../models/HTML.ts';
 import { createPdf, CreatePdfError } from './createPdf.ts';
+
+const TEST_CSP_POLICY =
+  "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'";
 
 vi.mock('puppeteer');
 
@@ -43,6 +47,9 @@ describe('createPdf', () => {
       { body },
       BodyProps.parse,
       TaskEither.fromEither,
+      TaskEither.map((bodyProps) => ({
+        body: HTML.withCSP(bodyProps.body, TEST_CSP_POLICY),
+      })),
       TaskEither.flatMap(createPdf),
       expectRightTaskEither((pdfBuffer) => {
         expect(pdfBuffer).toBeInstanceOf(Buffer);
@@ -63,6 +70,15 @@ describe('createPdf', () => {
       { body: html, header, footer },
       BodyProps.parse,
       TaskEither.fromEither,
+      TaskEither.map((bodyProps) => ({
+        body: HTML.withCSP(bodyProps.body, TEST_CSP_POLICY),
+        header: bodyProps.header
+          ? HTML.withCSP(bodyProps.header, TEST_CSP_POLICY)
+          : undefined,
+        footer: bodyProps.footer
+          ? HTML.withCSP(bodyProps.footer, TEST_CSP_POLICY)
+          : undefined,
+      })),
       TaskEither.flatMap(createPdf),
       expectRightTaskEither((pdfBuffer) => {
         expect(pdfBuffer).toBeInstanceOf(Buffer);
@@ -71,8 +87,8 @@ describe('createPdf', () => {
         expect(mockPage.pdf).toHaveBeenCalledWith(
           expect.objectContaining({
             displayHeaderFooter: true,
-            headerTemplate: header,
-            footerTemplate: footer,
+            headerTemplate: expect.stringContaining('<div>Header</div>'),
+            footerTemplate: expect.stringContaining('<div>Footer</div>'),
             margin: expect.objectContaining({
               top: '80px',
               bottom: '80px',
@@ -93,6 +109,9 @@ describe('createPdf', () => {
       { body },
       BodyProps.parse,
       TaskEither.fromEither,
+      TaskEither.map((bodyProps) => ({
+        body: HTML.withCSP(bodyProps.body, TEST_CSP_POLICY),
+      })),
       TaskEither.flatMap(createPdf),
       expectLeftTaskEither((error: any) => {
         expect(error.name).toBeInstanceOf(CreatePdfError);
@@ -110,6 +129,9 @@ describe('createPdf', () => {
       { body },
       BodyProps.parse,
       TaskEither.fromEither,
+      TaskEither.map((bodyProps) => ({
+        body: HTML.withCSP(bodyProps.body, TEST_CSP_POLICY),
+      })),
       TaskEither.flatMap(createPdf),
       expectLeftTaskEither((error: any) => {
         expect(error.name).toBeInstanceOf(CreatePdfError);

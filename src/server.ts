@@ -7,10 +7,14 @@ import { isValidationErrorLike } from 'zod-validation-error/v4';
 
 import pkg from '../package.json' with { type: 'json' };
 import { createPdf } from './commands/createPdf.ts';
-import { BodyProps } from './models/index.ts';
+import { BodyProps, HTML } from './models/index.ts';
 import { generateFilename } from './utils/filename.ts';
 
-export const makeServer = (ctx: { logger: Logger; rollbar: Rollbar }) => {
+export const makeServer = (ctx: {
+  logger: Logger;
+  rollbar: Rollbar;
+  cspPolicy: string;
+}) => {
   const server = Fastify({
     logger: false,
     bodyLimit: 10 * 1024 * 1024, // 10MB limit
@@ -33,13 +37,16 @@ export const makeServer = (ctx: { logger: Logger; rollbar: Rollbar }) => {
       request.body,
       BodyProps.parse,
       TaskEither.fromEither,
-      TaskEither.flatMap((bodyProps) =>
-        createPdf({
-          body: bodyProps.body,
-          header: bodyProps.header,
-          footer: bodyProps.footer,
-        })
-      ),
+      TaskEither.map((bodyProps) => ({
+        body: HTML.withCSP(bodyProps.body, ctx.cspPolicy),
+        header: bodyProps.header
+          ? HTML.withCSP(bodyProps.header, ctx.cspPolicy)
+          : undefined,
+        footer: bodyProps.footer
+          ? HTML.withCSP(bodyProps.footer, ctx.cspPolicy)
+          : undefined,
+      })),
+      TaskEither.flatMap((htmlWithCSP) => createPdf(htmlWithCSP)),
       TaskEither.match(
         (error) => {
           if (isValidationErrorLike(error)) {
