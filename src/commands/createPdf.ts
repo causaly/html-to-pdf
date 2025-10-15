@@ -2,16 +2,16 @@ import { pipe } from 'fp-ts/lib/function.js';
 import * as TaskEither from 'fp-ts/lib/TaskEither.js';
 import puppeteer from 'puppeteer';
 
-import type { HTML } from '../models/HTML.ts';
+import type { HTMLWithCSP } from '../models/HTML.ts';
 
 export class CreatePdfError extends Error {
   name = 'CreatePdfError' as const;
 }
 
 export type CreatePdfProps = {
-  body: HTML;
-  header?: HTML;
-  footer?: HTML;
+  body: HTMLWithCSP;
+  header?: HTMLWithCSP;
+  footer?: HTMLWithCSP;
 };
 
 const HEADER_FOOTER_VERTICAL_MARGIN = '80px';
