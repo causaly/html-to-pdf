@@ -161,16 +161,16 @@ Content-Type: application/json
 
 The service requires basic configuration via environment variables:
 
-| Variable               | Required | Default                                              | Description                                          |
-| ---------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `HOST`                 | Yes      | -                                                    | Server host address                                  |
-| `PORT`                 | Yes      | -                                                    | Server port                                          |
-| `NODE_ENV`             | No       | `development`                                        | Node.js environment                                  |
-| `DEPLOY_ENV`           | No       | `development`                                        | Deployment environment                               |
-| `LOG_FORMAT`           | No       | `pretty`                                             | Log format (`pretty` or `gcp`)                       |
-| `LOG_LEVEL`            | No       | `info`                                               | Log level (`debug`, `info`, `warn`, `error`, `none`) |
-| `ROLLBAR_ACCESS_TOKEN` | No       | -                                                    | Rollbar access token for error tracking              |
-| `CSP_POLICY`           | No       | Loose policy with `'unsafe-inline'` for script/style | Content Security Policy for generated PDFs           |
+| Variable               | Required | Default                                              | Description                                                                  |
+| ---------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `HOST`                 | Yes      | -                                                    | Server host address                                                          |
+| `PORT`                 | Yes      | -                                                    | Server port                                                                  |
+| `NODE_ENV`             | No       | `development`                                        | Node.js environment                                                          |
+| `DEPLOY_ENV`           | No       | `development`                                        | Deployment environment                                                       |
+| `LOG_FORMAT`           | No       | `pretty`                                             | Log format (`pretty` or `gcp`)                                               |
+| `LOG_LEVEL`            | No       | `info`                                               | Log level (`debug`, `info`, `warn`, `error`, `none`)                         |
+| `ROLLBAR_ACCESS_TOKEN` | No       | -                                                    | Rollbar access token for error tracking                                      |
+| `CSP_POLICY`           | No       | Loose policy with `'unsafe-inline'` for script/style | Content Security Policy for the rendered HTML (see the security notes below) |
 
 ### Environment File
 
@@ -226,6 +226,19 @@ Then customize as needed. See `.env.example` for all available configuration opt
      -e LOG_FORMAT=pretty \
      html-to-pdf
    ```
+
+## Security notes
+
+This service renders HTML by design; this includes fetching and rendering any resources
+included in the document you render. It's important to think about the implications of this when configuring and deploying the service.
+
+### Isolation
+
+Be aware you're giving users of this service the ability to fetch resources with the service, which means it performs [server side requests](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery) _by design_. Isolate the service from other systems. Take care to ensure you're not exposing internal endpoints.
+
+### CSP
+
+A [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) will be applied to the rendered document. By default, this policy is permissive. You will almost certainly want to tighten this. Consider disabling `unsafe-inline` for scripts and styles and using hash sources for any inline scripts or script attributes.
 
 ## Contributing
 
