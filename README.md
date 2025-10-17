@@ -161,16 +161,16 @@ Content-Type: application/json
 
 The service requires basic configuration via environment variables:
 
-| Variable               | Required | Default                                              | Description                                          |
-| ---------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `HOST`                 | Yes      | -                                                    | Server host address                                  |
-| `PORT`                 | Yes      | -                                                    | Server port                                          |
-| `NODE_ENV`             | No       | `development`                                        | Node.js environment                                  |
-| `DEPLOY_ENV`           | No       | `development`                                        | Deployment environment                               |
-| `LOG_FORMAT`           | No       | `pretty`                                             | Log format (`pretty` or `gcp`)                       |
-| `LOG_LEVEL`            | No       | `info`                                               | Log level (`debug`, `info`, `warn`, `error`, `none`) |
-| `ROLLBAR_ACCESS_TOKEN` | No       | -                                                    | Rollbar access token for error tracking              |
-| `CSP_POLICY`           | No       | Loose policy with `'unsafe-inline'` for script/style | Content Security Policy for the rendered HTML (see the security notes below)          |
+| Variable               | Required | Default                                              | Description                                                                  |
+| ---------------------- | -------- | ---------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `HOST`                 | Yes      | -                                                    | Server host address                                                          |
+| `PORT`                 | Yes      | -                                                    | Server port                                                                  |
+| `NODE_ENV`             | No       | `development`                                        | Node.js environment                                                          |
+| `DEPLOY_ENV`           | No       | `development`                                        | Deployment environment                                                       |
+| `LOG_FORMAT`           | No       | `pretty`                                             | Log format (`pretty` or `gcp`)                                               |
+| `LOG_LEVEL`            | No       | `info`                                               | Log level (`debug`, `info`, `warn`, `error`, `none`)                         |
+| `ROLLBAR_ACCESS_TOKEN` | No       | -                                                    | Rollbar access token for error tracking                                      |
+| `CSP_POLICY`           | No       | Loose policy with `'unsafe-inline'` for script/style | Content Security Policy for the rendered HTML (see the security notes below) |
 
 ### Environment File
 
