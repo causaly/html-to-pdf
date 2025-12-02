@@ -46,9 +46,6 @@
       "prettier --write --config ./.prettierrc.json"
     ]
   },
-  "overrides": {
-    "glob": "^11.1.0"
-  },
   "dependencies": {
     "axios": "^1.9.0",
     "fastify": "^5.4.0",
