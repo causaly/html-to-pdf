@@ -24,7 +24,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.22.0"
   },
   "scripts": {
     "clean": "rimraf dist",

@@ -3,7 +3,7 @@
 # For more information on running Puppeteer in Docker, see:
 # https://pptr.dev/troubleshooting#running-puppeteer-in-docker
 
-ARG NODE_VERSION=22
+ARG NODE_VERSION=22.22.0
 
 FROM node:${NODE_VERSION}-bookworm-slim
 
