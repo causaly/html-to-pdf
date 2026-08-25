@@ -39,8 +39,10 @@ export const createPdf = (props: CreatePdfProps) => {
         try {
           const page = await browser.newPage();
 
-          // Wait for all resources to be fetched and loaded
-          await page.setContent(props.body, { waitUntil: 'networkidle0' });
+          // Wait for sub-resources (images, stylesheets, fonts) to load.
+          // Puppeteer 25 removed 'networkidle0' from setContent, so we no
+          // longer wait for JS-initiated fetches to settle.
+          await page.setContent(props.body, { waitUntil: 'load' });
 
           const pdfData = await page.pdf({
             format: 'A4',
