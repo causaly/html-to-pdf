@@ -52,7 +52,7 @@
     "pino": "^8.21.0",
     "pino-cloud-logging": "^1.0.6",
     "pino-pretty": "^13.0.0",
-    "puppeteer": "^24.10.0",
+    "puppeteer": "^25.8.0",
     "rollbar": "^2.26.5",
     "sanitize-html": "^2.17.5",
     "zod": "^3.25.56",
@@ -61,6 +61,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
     "@eslint/js": "^9.28.0",
+    "@types/node": "^22.20.1",
     "@types/sanitize-html": "^2.16.0",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
