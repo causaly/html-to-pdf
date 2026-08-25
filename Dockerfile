@@ -29,6 +29,9 @@ RUN apt-get update \
         fonts-freefont-ttf \
         dbus \
         dbus-x11 \
+        # @puppeteer/browsers v3 no longer bundles a zip extractor; on Linux it
+        # shells out to `unzip` to unpack the Chrome archive.
+        unzip \
         # Custom dependencies
         fonts-noto-color-emoji \
         fonts-roboto
