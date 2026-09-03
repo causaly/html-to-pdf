@@ -47,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "fastify": "^5.8.5",
+    "fastify": "^5.12.1",
     "fp-ts": "^2.16.10",
     "pino": "^8.21.0",
     "pino-cloud-logging": "^1.0.6",
