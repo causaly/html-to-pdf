@@ -24,11 +24,11 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=22.22.0"
+    "node": ">=24.22.1"
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && esbuild src/index.ts --bundle --platform=node --packages=external --target=node22 --format=esm --outfile=dist/index.js",
+    "build": "npm run clean && esbuild src/index.ts --bundle --platform=node --packages=external --target=node24 --format=esm --outfile=dist/index.js",
     "start": "node --env-file-if-exists .env dist/index.js",
     "dev": "NODE_OPTIONS='--experimental-strip-types' node --watch --env-file .env src/index.ts",
     "lint": "eslint --cache --cache-strategy content .",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
     "@eslint/js": "^9.28.0",
-    "@types/node": "^22.20.1",
+    "@types/node": "^24.19.2",
     "@types/sanitize-html": "^2.16.0",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
