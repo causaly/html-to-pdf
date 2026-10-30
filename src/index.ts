@@ -10,9 +10,7 @@ import { makeLogger } from './utils/logger.ts';
 import { makeRollbar } from './utils/rollbar.ts';
 
 zod.config({
-  customError: createErrorMap({
-    includePath: true,
-  }),
+  customError: createErrorMap(),
 });
 
 const envVariables = pipe(
