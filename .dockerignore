@@ -25,12 +25,14 @@ coverage
 test/
 tests/
 __tests__/
+e2e/
 
 # Development configuration
 .env.local
 .env.development
 .env.test
 vitest.config.ts
+vitest.e2e.config.ts
 .eslintcache
 
 # Logs
