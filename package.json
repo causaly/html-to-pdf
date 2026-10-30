@@ -52,11 +52,11 @@
     "pino": "^8.21.0",
     "pino-cloud-logging": "^1.0.6",
     "pino-pretty": "^13.0.0",
-    "puppeteer": "^25.8.0",
+    "puppeteer": "^25.16.0",
     "rollbar": "^2.26.5",
     "sanitize-html": "^2.18.1",
-    "zod": "^3.25.56",
-    "zod-validation-error": "^3.5.1"
+    "zod": "^4.6.7",
+    "zod-validation-error": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
