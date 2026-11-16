@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Styles added by script, so the render depends on page scripts running.
+      const style = document.createElement('style');
+      style.textContent = `
+        .subtitle { color: #6b7280; font-size: 12px; margin-bottom: 32px; }
+        .accent { color: #0f766e; }
+        .muted { color: #4b5563; font-size: 12px; }
+      `;
+      document.head.appendChild(style);
+    </script>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        color: #111827;
+      }
+      @page {
+        size: A4 portrait;
+      }
+      @page landscape {
+        size: A4 landscape;
+      }
+      .landscape {
+        page: landscape;
+        break-before: page;
+        break-after: page;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #d1d5db;
+        font-size: 11px;
+        padding: 4px 6px;
+        text-align: left;
+      }
+      th {
+        background-color: #f3f4f6;
+      }
+      .reference {
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Example study report: watering schedules and seedling growth</h1>
+    <p class="subtitle">
+      Fictional content written for html-to-pdf render tests
+    </p>
+
+    <h2>Summary</h2>
+    <p>
+      Three watering schedules were compared across 120 seedlings grown under
+      identical light. Seedlings watered little and often grew taller than those
+      watered once a week<a href="https://example.org/references/1">[1]</a>, and
+      the difference held at both temperatures tested, 18 °C and 24 °C<a
+        href="https://example.org/references/2"
+        >[2]</a
+      >.
+    </p>
+    <p>
+      Mean height rose by <strong>≥ 25%</strong> under the daily schedule. Soil
+      moisture in the daily trays stayed within ± 3% of target, and differences
+      were significant at α = 0.05 (<em>p</em> &lt; 0.01). Every schedule
+      delivered 250 mL of water per tray per day on average.
+    </p>
+
+    <h2 class="accent">Key findings</h2>
+    <ul>
+      <li>
+        <strong>Growth.</strong> Daily watering produced the tallest seedlings
+        by week 6<a href="https://example.org/references/3">[3]</a>.
+      </li>
+      <li>
+        <strong>Leaves.</strong> Leaf count differed by at most one leaf between
+        schedules.
+      </li>
+      <li>
+        <strong>Losses.</strong> Two seedlings failed under the weekly schedule
+        and none under the others.
+      </li>
+    </ul>
+
+    <h3>Method</h3>
+    <ol>
+      <li>
+        Seedlings were assigned at random to one of three schedules and one of
+        two temperatures.
+      </li>
+      <li>Height and leaf count were recorded every seven days.</li>
+      <li>Soil moisture was logged hourly by sensors in each tray.</li>
+      <li>
+        Results were compared with a two-way analysis of variance, followed by
+        pairwise tests between schedules.
+      </li>
+    </ol>
+
+    <h3>Mean height at week 6</h3>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="480"
+      height="200"
+      viewBox="0 0 480 200"
+      role="img"
+    >
+      <rect x="0" y="0" width="480" height="200" fill="#f9fafb" />
+      <line x1="40" y1="170" x2="460" y2="170" stroke="#6b7280" />
+      <line x1="40" y1="20" x2="40" y2="170" stroke="#6b7280" />
+      <rect x="80" y="40" width="80" height="130" fill="#0f766e" />
+      <rect x="200" y="70" width="80" height="100" fill="#14b8a6" />
+      <rect x="320" y="95" width="80" height="75" fill="#99f6e4" />
+      <text x="120" y="188" font-size="11" text-anchor="middle">Daily</text>
+      <text x="240" y="188" font-size="11" text-anchor="middle">
+        Twice weekly
+      </text>
+      <text x="360" y="188" font-size="11" text-anchor="middle">Weekly</text>
+      <text x="34" y="24" font-size="10" text-anchor="end">20 cm</text>
+      <text x="34" y="174" font-size="10" text-anchor="end">0</text>
+    </svg>
+
+    <h3>Schedules</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Schedule</th>
+          <th>Volume per watering</th>
+          <th>Interval</th>
+          <th>Seedlings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Daily</td>
+          <td>250 mL</td>
+          <td>Every day</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td>Twice weekly</td>
+          <td>875 mL</td>
+          <td>Every 3–4 days</td>
+          <td>40</td>
+        </tr>
+        <tr>
+          <td>Weekly</td>
+          <td>1,750 mL</td>
+          <td>Every 7 days</td>
+          <td>40</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="landscape">
+      <table>
+        <thead>
+          <tr>
+            <th>Schedule</th>
+            <th>Temperature</th>
+            <th>Week 1</th>
+            <th>Week 2</th>
+            <th>Week 3</th>
+            <th>Week 4</th>
+            <th>Week 5</th>
+            <th>Week 6</th>
+            <th>Leaves at week 6</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daily</td>
+            <td>18 °C</td>
+            <td>2.0 cm</td>
+            <td>4.4 cm</td>
+            <td>7.3 cm</td>
+            <td>10.4 cm</td>
+            <td>13.6 cm</td>
+            <td>16.9 cm</td>
+            <td>9</td>
+            <td>
+              <a href="https://example.org/references/1"
+                >https://example.org/references/1</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Daily</td>
+            <td>24 °C</td>
+            <td>2.2 cm</td>
+            <td>4.8 cm</td>
+            <td>7.8 cm</td>
+            <td>11.0 cm</td>
+            <td>14.3 cm</td>
+            <td>17.7 cm</td>
+            <td>9</td>
+            <td>
+              <a href="https://example.org/references/1"
+                >https://example.org/references/1</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Twice weekly</td>
+            <td>18 °C</td>
+            <td>1.9 cm</td>
+            <td>3.9 cm</td>
+            <td>6.1 cm</td>
+            <td>8.3 cm</td>
+            <td>10.6 cm</td>
+            <td>12.9 cm</td>
+            <td>8</td>
+            <td>
+              <a href="https://example.org/references/2"
+                >https://example.org/references/2</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Twice weekly</td>
+            <td>24 °C</td>
+            <td>2.0 cm</td>
+            <td>4.2 cm</td>
+            <td>6.5 cm</td>
+            <td>8.9 cm</td>
+            <td>11.3 cm</td>
+            <td>13.7 cm</td>
+            <td>8</td>
+            <td>
+              <a href="https://example.org/references/2"
+                >https://example.org/references/2</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Weekly</td>
+            <td>18 °C</td>
+            <td>1.8 cm</td>
+            <td>3.4 cm</td>
+            <td>5.0 cm</td>
+            <td>6.6 cm</td>
+            <td>8.1 cm</td>
+            <td>9.6 cm</td>
+            <td>8</td>
+            <td>
+              <a href="https://example.org/references/3"
+                >https://example.org/references/3</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Weekly</td>
+            <td>24 °C</td>
+            <td>1.9 cm</td>
+            <td>3.6 cm</td>
+            <td>5.3 cm</td>
+            <td>7.0 cm</td>
+            <td>8.7 cm</td>
+            <td>10.4 cm</td>
+            <td>8</td>
+            <td>
+              <a href="https://example.org/references/3"
+                >https://example.org/references/3</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Limitations</h2>
+    <p>
+      All seedlings came from a single seed batch and were grown in one
+      facility, so the results may not hold for other varieties or conditions.
+      Sensor readings drifted by up to 1% over the six weeks and were
+      recalibrated weekly.
+    </p>
+    <p>
+      The study ran for six weeks only. Longer trials would show whether the
+      early advantage of daily watering persists once plants are established.
+    </p>
+
+    <h2>References</h2>
+    <div class="reference">
+      <a href="https://example.org/references/1"
+        >[1] Example reference one: growth under frequent watering</a
+      >
+      <div class="muted">Example Journal · 2024</div>
+    </div>
+    <div class="reference">
+      <a href="https://example.org/references/2"
+        >[2] Example reference two: temperature and soil moisture</a
+      >
+      <div class="muted">Example Journal · 2025</div>
+    </div>
+    <div class="reference">
+      <a href="https://example.org/references/3"
+        >[3] Example reference three: measuring seedling height</a
+      >
+      <div class="muted">Example Proceedings · 2026</div>
+    </div>
+  </body>
+</html>

@@ -227,6 +227,12 @@ Then customize as needed. See `.env.example` for all available configuration opt
      html-to-pdf
    ```
 
+### Render tests
+
+`npm run test:e2e` builds the Docker image, renders each fixture in `e2e/fixtures/<name>/` (`body.html`, plus optional `header.html` and `footer.html`), and compares the result with that fixture's `expected.pdf`: page sizes, text and links must match, and every page must be pixel-identical. On a mismatch, `e2e/output/<name>/` holds the actual PDF and per-page expected, actual and diff images.
+
+When a change to the output is intended, regenerate the goldens with `npm run test:e2e:update` and review the new PDFs before committing them.
+
 ## Security notes
 
 This service renders HTML by design; this includes fetching and rendering any resources

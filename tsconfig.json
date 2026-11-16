@@ -22,5 +22,5 @@
     "types": ["node", "vitest/globals"],
     "verbatimModuleSyntax": true
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts", "./e2e/**/*.ts"]
 }

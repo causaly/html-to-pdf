@@ -38,3 +38,6 @@ coverage
 
 # zed plugins related
 .codebook.toml
+
+# e2e render diffs
+e2e/output
