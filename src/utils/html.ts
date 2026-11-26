@@ -19,6 +19,7 @@ export function sanitizeHtml(html: string): string {
     allowedTags: false, // false === "no whitelist → allow all" - but, crucially, prevents 'body', sibling and parent elements from being allowed
     allowedAttributes: false, // ditto for attributes
     allowVulnerableTags: true, // let script/style/iframe through *if* we keep them
+    allowedSchemesByTag: { img: ['http', 'https', 'data'] }, // embedded images; data: stays stripped everywhere else
     // Remove the exclusiveFilter entirely - CSP will block malicious scripts
   });
 }

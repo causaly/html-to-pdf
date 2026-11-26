@@ -110,6 +110,25 @@ describe('sanitizeHtml', () => {
     expect(result).toContain('<div>Content</div>');
   });
 
+  it('should keep data: URLs in img src', () => {
+    const html = '<img src="data:image/png;base64,iVBORw0KGgo=" alt="chart">';
+    const result = sanitizeHtml(html);
+
+    expect(result).toContain('src="data:image/png;base64,iVBORw0KGgo="');
+  });
+
+  it.each([
+    ['a href', '<a href="data:text/html;base64,PGgxPkhpPC9oMT4=">Link</a>'],
+    [
+      'iframe src',
+      '<iframe src="data:text/html;base64,PGgxPkhpPC9oMT4="></iframe>',
+    ],
+  ])('should strip data: URLs from %s', (_, html) => {
+    const result = sanitizeHtml(html);
+
+    expect(result).not.toContain('data:');
+  });
+
   it('should not contain head or body tags', () => {
     const html = '<div>Content</div>';
     const result = sanitizeHtml(html);
